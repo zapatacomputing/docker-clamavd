@@ -1,7 +1,13 @@
 #!/bin/bash
 set -m
 
+# we need to get a set of files to work with
+freshclam 
+
+# this will monitor and update
 freshclam -d &
+
+# the scanner
 clamd &
 
 pids=`jobs -p`
