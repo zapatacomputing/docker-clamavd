@@ -2,7 +2,8 @@ FROM debian:stretch
 
 LABEL maintainer="ZapataComputing"
 
-ENV CLAMAV_VERSION 0.102.4+dfsg-0+deb9u1
+ENV CLAMAV_VERSION 0.102.4+dfsg-0+deb9u2
+ENV CLAMAV_MIRROR_URL database.clamav.net
 
 RUN echo "deb http://http.debian.net/debian/ stretch main contrib non-free" > /etc/apt/sources.list && \
     echo "deb http://http.debian.net/debian/ stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
@@ -18,7 +19,8 @@ RUN echo "deb http://http.debian.net/debian/ stretch main contrib non-free" > /e
     rm -rf /var/lib/apt/lists/*
 
 RUN sed -i 's/^Foreground .*$/Foreground true/g' /etc/clamav/clamd.conf && \
-    sed -i 's/^Foreground .*$/Foreground true/g' /etc/clamav/freshclam.conf
+    sed -i 's/^Foreground .*$/Foreground true/g' /etc/clamav/freshclam.conf && \
+    sed -i '/^DatabaseMirror/d' /etc/clamav/freshclam.conf
 
 ADD run.sh /
 
