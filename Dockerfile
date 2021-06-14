@@ -15,6 +15,9 @@ RUN echo "deb http://http.debian.net/debian/ stretch main contrib non-free" > /e
         ca-certificates \
         openssl \
         dnsutils && \
+    mkdir -p /var/run/clamav/ && \
+    chgrp clamav /var/run/clamav && \
+    chmod g+w /var/run/clamav && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

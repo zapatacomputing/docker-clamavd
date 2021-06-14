@@ -18,6 +18,8 @@ freshclam -d &
 # the scanner
 clamd &
 
+trapping_clamd=$!
+
 pids=`jobs -p`
 
 exitcode=0
@@ -36,6 +38,6 @@ function terminate() {
 }
 
 trap terminate CHLD
-wait
+wait $trapping_clamd
 
 exit $exitcode
